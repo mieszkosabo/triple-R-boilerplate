@@ -1,5 +1,9 @@
-import { primaryFont } from './typography';
+import { colors } from './colors';
+import { primaryFont, typeScale, fontWeights } from './typography';
 
 export const defaultTheme = {
-    primaryFont
+    primaryFont,
+    typeScale,
+    fontWeights,
+    colors
 };

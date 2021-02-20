@@ -1,49 +1,62 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import styled from 'styled-components';
+import { ThemeContext } from 'styled-components';
 import { PrimaryButton } from '../../components/Buttons';
+import { Flexbox } from '../../components/layout/Flexbox';
+import { Spacer } from '../../components/layout/Spacer';
 import {
     asyncDecrementCounter, asyncIncrementCounter, cancel, decrementCounter, incrementCounter
 } from './actions';
+import { BigNumberDisplay } from './components/BigNumberDisplay';
 import { selectCounter } from './selectors';
 
-const Stack = styled.div`
-        display: flex;
-        flex-direction: column;
-        max-width: 300px;
-`;
 export const Homepage = () => {
     const dispatch = useDispatch();
     const counter = useSelector(selectCounter);
+    const theme = useContext(ThemeContext);
     return (
-        <Stack>
-            <PrimaryButton
-                modifiers={['small']}
-                onClick={() => dispatch(incrementCounter())}
-            >
+        <Flexbox align="center" direction="column">
+            <BigNumberDisplay number={counter} />
+            <Flexbox>
+                <Flexbox direction="column">
+                    <PrimaryButton
+                        modifiers={['ultra', 'italic', 'big']}
+                        onClick={() => dispatch(incrementCounter())}
+                    >
                 Increment
-            </PrimaryButton>
-            <PrimaryButton
-                onClick={() => dispatch(decrementCounter())}
-            >
+                    </PrimaryButton>
+                    <Spacer height={theme.dims.smallSpace} />
+                    <PrimaryButton
+                        onClick={() => dispatch(decrementCounter())}
+                        modifiers={['ultra', 'italic', 'big']}
+                    >
                 Decrement Counter
-            </PrimaryButton>
-            {counter}
-            <PrimaryButton
-                onClick={() => dispatch(asyncIncrementCounter())}
-            >
+                    </PrimaryButton>
+                </Flexbox>
+                <Spacer width={theme.dims.hugeSpace} />
+                <Flexbox direction="column">
+                    <PrimaryButton
+                        onClick={() => dispatch(asyncIncrementCounter())}
+                        modifiers={['ultra', 'italic', 'big']}
+                    >
                  Async Increment
-            </PrimaryButton>
-            <PrimaryButton
-                onClick={() => dispatch(asyncDecrementCounter())}
-            >
+                    </PrimaryButton>
+                    <Spacer height={theme.dims.smallSpace} />
+                    <PrimaryButton
+                        onClick={() => dispatch(asyncDecrementCounter())}
+                        modifiers={['ultra', 'italic', 'big']}
+                    >
                     Async Decrement
-            </PrimaryButton>
-            <PrimaryButton
-                onClick={() => dispatch(cancel())}
-            >
+                    </PrimaryButton>
+                    <Spacer height="15px" />
+                    <PrimaryButton
+                        onClick={() => dispatch(cancel())}
+                        modifiers={['ultra', 'italic', 'big']}
+                    >
                     Cancel async
-            </PrimaryButton>
-        </Stack>
+                    </PrimaryButton>
+                </Flexbox>
+            </Flexbox>
+        </Flexbox>
     );
 };

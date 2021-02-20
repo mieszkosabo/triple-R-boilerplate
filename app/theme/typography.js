@@ -1,4 +1,10 @@
-export const primaryFont = '"Roboto Mono", monospace';
+export const primaryFont = 'fira-sans, sans-serif';
+
+export const fontWeights = {
+    regular: 400,
+    bold: 700,
+    ultra: 900
+};
 
 export const typeScale = {
     header1: '1.8rem',
