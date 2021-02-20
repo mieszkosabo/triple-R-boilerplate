@@ -1,22 +1,23 @@
-import { fromJS } from 'immutable';
+import produce from 'immer';
+import {
+    lens, prop, assoc, over, inc, dec
+} from 'ramda';
 import { DECREMENT, INCREMENT } from './const';
-
-const initialState = fromJS({
+const initialState = {
     counter: 0
-});
+};
+const counterLens = lens(prop('counter'), assoc('counter'));
 
 export const HOMEPAGE_REDUCER = 'HOMEPAGE_REDUCER';
 
-export const HomePageReducer = (state = initialState, action) => {
-    switch (action.type) {
-        case INCREMENT: {
-            return state.update('counter', (value) => value + 1);
+export const HomePageReducer = (state = initialState, action) => (
+    produce(state, (draft) => {
+        switch (action.type) {
+            case INCREMENT: {
+                return over(counterLens, inc, draft);
+            }
+            case DECREMENT: {
+                return over(counterLens, dec, draft);
+            }
         }
-        case DECREMENT: {
-            return state.update('counter', (value) => value - 1);
-        }
-        default: {
-            return state;
-        }
-    }
-};
+    }));

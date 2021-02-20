@@ -3,11 +3,10 @@
  */
 
 import { createStore, applyMiddleware, compose } from 'redux';
-import { routerMiddleware } from 'connected-react-router/immutable';
+import { routerMiddleware } from 'connected-react-router';
 import { createEpicMiddleware } from 'redux-observable';
 import { BehaviorSubject } from 'rxjs';
 import { switchMap } from 'rxjs/operators';
-import { fromJS } from 'immutable';
 import createReducer from './reducers';
 import { rootEpic } from './epics';
 
@@ -33,7 +32,7 @@ export default function configureStore(initialState = {}, history) {
 
     const store = createStore(
         createReducer(),
-        fromJS(initialState),
+        initialState,
         composeEnhancers(...enhancers),
     );
 
